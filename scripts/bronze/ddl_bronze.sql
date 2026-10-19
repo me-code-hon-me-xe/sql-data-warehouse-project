@@ -1,1 +1,112 @@
+/*
+======================================================
+DDL Script: Create Bronze Tables
+======================================================
+
+Script purpose: 
+    This scripts creates tables in the 'bronze' schema.
+    If they already exits:
+        Dropping exiting tables.
+        Run this script to re-define the DDL structure of 'bronze' Tables
+*/
+
+
+USE DataWarehouse;
+GO
+-- Check if the table exists, and drop it if it does
+IF OBJECT_ID('bronze.crm_cus_info', 'U') IS NOT NULL
+BEGIN
+    DROP TABLE bronze.crm_cus_info;
+END
+GO
+
+-- Now create the table safely
+CREATE TABLE bronze.crm_cus_info (
+    cst_id INT,
+    cst_key NVARCHAR(50),
+    cst_firstname NVARCHAR(50),
+    cst_lastname NVARCHAR(50),
+    cst_marital_status NVARCHAR(50),
+    cst_gndr NVARCHAR(50),
+    cst_create_date DATE
+);
+GO
+
+-- Check if the table exists, and drop it if it does
+IF OBJECT_ID('bronze.crm_prd_info', 'U') IS NOT NULL
+BEGIN
+    DROP TABLE bronze.crm_prd_info;
+END
+GO
+
+CREATE TABLE bronze.crm_prd_info (
+prd_id INT,
+prd_key NVARCHAR(50),
+prd_nm NVARCHAR(50),
+prd_cost INT,
+prd_line NVARCHAR(50),
+prd_start_dt DATETIME,
+prd_end_dt DATETIME
+);
+
+
+-- Check if the table exists, and drop it if it does
+IF OBJECT_ID('bronze.crm_sales_details', 'U') IS NOT NULL
+BEGIN
+    DROP TABLE bronze.crm_sales_details;
+END
+GO
+
+CREATE TABLE bronze.crm_sales_details (
+sls_ord_num NVARCHAR(50),
+sls_prd_key NVARCHAR(50),
+sls_cust_id INT,
+sls_order_dt INT,
+sls_ship_dt INT,
+sls_due_dt INT,
+sls_sales INT,
+sls_quantity INT,
+sls_price INT
+);
+
+
+-- Check if the table exists, and drop it if it does
+IF OBJECT_ID('bronze.erp_loc_a101', 'U') IS NOT NULL
+BEGIN
+    DROP TABLE bronze.erp_loc_a101;
+END
+GO
+
+CREATE TABLE bronze.erp_loc_a101 (
+cide NVARCHAR(50),
+cntry NVARCHAR(50)
+);
+
+-- Check if the table exists, and drop it if it does
+IF OBJECT_ID('bronze.erp_cust_az12', 'U') IS NOT NULL
+BEGIN
+    DROP TABLE bronze.erp_cust_az12;
+END
+GO
+
+CREATE TABLE bronze.erp_cust_az12 (
+cid NVARCHAR(50),
+bdate DATE,
+gen NVARCHAR(50)
+);
+
+-- Check if the table exists, and drop it if it does
+IF OBJECT_ID('bronze.erp_px_cat_g1v2', 'U') IS NOT NULL
+BEGIN
+    DROP TABLE bronze.erp_px_cat_g1v2;
+END
+GO
+
+
+CREATE TABLE bronze.erp_px_cat_g1v2 (
+id NVARCHAR(50),
+cat NVARCHAR(50),
+subcat NVARCHAR(50),
+maintanence NVARCHAR(50)
+);
 
