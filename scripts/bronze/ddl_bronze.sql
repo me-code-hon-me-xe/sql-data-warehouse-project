@@ -14,14 +14,14 @@ Script purpose:
 USE DataWarehouse;
 GO
 -- Check if the table exists, and drop it if it does
-IF OBJECT_ID('bronze.crm_cus_info', 'U') IS NOT NULL
+IF OBJECT_ID('bronze.crm_cust_info', 'U') IS NOT NULL
 BEGIN
-    DROP TABLE bronze.crm_cus_info;
+    DROP TABLE bronze.crm_cust_info;
 END
 GO
 
 -- Now create the table safely
-CREATE TABLE bronze.crm_cus_info (
+CREATE TABLE bronze.crm_cust_info (
     cst_id INT,
     cst_key NVARCHAR(50),
     cst_firstname NVARCHAR(50),
