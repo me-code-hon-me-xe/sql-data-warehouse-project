@@ -58,10 +58,6 @@ SELECT prd_nm
 FROM bronze.crm_prd_info
 WHERE prd_nm != TRIM(prd_nm);
 
--- Check crm_prd_info
-SELECT prd_nm
-FROM bronze.crm_sales_details
-WHERE prd_nm != TRIM(prd_nm);
 
 -- =========================================================================
 -- 5. Check for Data Standardization and Consistency
