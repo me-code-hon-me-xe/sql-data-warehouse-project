@@ -83,3 +83,28 @@ FROM silver.crm_prd_info
 SELECT prd_cost
 FROM silver.crm_prd_info
 WHERE prd_cost < 0 or prd_cost IS NULL 
+
+
+-- =========================================================================
+-- 7. Check for the invalid date oder
+-- Expectation: The shipping date and the due date should greater than the order date
+-- =========================================================================
+SELECT *
+FROM [DataWarehouse].[silver].[crm_sales_details]
+WHERE sls_order_dt > sls_ship_dt or sls_order_dt > sls_due_dt
+
+
+-- =========================================================================
+-- 8. Check the data  consistency: Between sales, quantity and price
+-- Expectation: >> Sales = Quantity * Price
+--              >> Values must not be Zero, Null or negative
+-- =========================================================================
+SELECT DISTINCT
+*
+FROM [DataWarehouse].[silver].[crm_sales_details]
+WHERE sls_sales != sls_quantity * sls_price
+OR sls_sales IS NULL OR sls_quantity IS NULL OR sls_price IS NULL
+OR sls_sales <= 0 OR sls_quantity <= 0 OR sls_price <= 0
+ORDER BY sls_sales
+
+
