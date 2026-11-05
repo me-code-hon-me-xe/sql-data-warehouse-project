@@ -74,6 +74,26 @@ FROM silver.crm_cust_info;
 SELECT DISTINCT prd_line
 FROM silver.crm_prd_info
 
+-- Check erp_cust_az12
+SELECT DISTINCT gen
+FROM silver.erp_cust_az12
+
+-- Check erp_loc_a101
+SELECT DISTINCT cntry
+FROM silver.erp_loc_a101
+
+-- Check erp_px_cat_g1v2
+SELECT DISTINCT cat
+FROM silver.erp_px_cat_g1v2
+
+-- Check erp_px_cat_g1v2
+SELECT DISTINCT subcat
+FROM silver.erp_px_cat_g1v2
+
+-- Check erp_px_cat_g1v2
+SELECT DISTINCT maintanence
+FROM silver.erp_px_cat_g1v2
+
 
 -- =========================================================================
 -- 6. Check for Null or Negative number
@@ -107,4 +127,28 @@ OR sls_sales IS NULL OR sls_quantity IS NULL OR sls_price IS NULL
 OR sls_sales <= 0 OR sls_quantity <= 0 OR sls_price <= 0
 ORDER BY sls_sales
 
+
+-- =========================================================================
+-- 9. Check the data  consistency: Between sales, quantity and price
+-- Expectation: >> Sales = Quantity * Price
+--              >> Values must not be Zero, Null or negative
+-- =========================================================================
+SELECT DISTINCT
+*
+FROM [DataWarehouse].[silver].[crm_sales_details]
+WHERE sls_sales != sls_quantity * sls_price
+OR sls_sales IS NULL OR sls_quantity IS NULL OR sls_price IS NULL
+OR sls_sales <= 0 OR sls_quantity <= 0 OR sls_price <= 0
+ORDER BY sls_sales
+
+
+-- =========================================================================
+-- 10. Check Index out of range for the data bdate
+-- Expectation: bdate must smaller than the current date and greater than the date 01-01-1924
+-- =========================================================================
+-- Check erp_px_cat_g1v2
+SELECT DISTINCT 
+bdate
+FROM bronze.erp_cust_az12
+WHERE bdate < '1924-01-01' OR bdate > GETDATE()
 

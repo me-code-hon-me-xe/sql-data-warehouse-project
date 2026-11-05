@@ -58,6 +58,10 @@ SELECT prd_nm
 FROM bronze.crm_prd_info
 WHERE prd_nm != TRIM(prd_nm);
 
+-- Check erp_px_cat_g1v2
+SELECT * 
+FROM bronze.erp_px_cat_g1v2
+WHERE cat != TRIM(cat) OR subcat != TRIM(subcat) OR maintanence != TRIM(maintanence)
 
 -- =========================================================================
 -- 5. Check for Data Standardization and Consistency
@@ -72,6 +76,26 @@ FROM bronze.crm_cust_info;
 -- Check crm_prd_info
 SELECT DISTINCT prd_line
 FROM bronze.crm_prd_info
+
+-- Check erp_cust_az12
+SELECT DISTINCT gen
+FROM bronze.erp_cust_az12
+
+-- Check erp_loc_a101
+SELECT DISTINCT cntry
+FROM bronze.erp_loc_a101
+
+-- Check erp_px_cat_g1v2
+SELECT DISTINCT cat
+FROM bronze.erp_px_cat_g1v2
+
+-- Check erp_px_cat_g1v2
+SELECT DISTINCT subcat
+FROM bronze.erp_px_cat_g1v2
+
+-- Check erp_px_cat_g1v2
+SELECT DISTINCT maintanence
+FROM bronze.erp_px_cat_g1v2
 
 
 -- =========================================================================
@@ -162,4 +186,13 @@ OR sls_sales IS NULL OR sls_quantity IS NULL OR sls_price IS NULL
 OR sls_sales <= 0 OR sls_quantity <= 0 OR sls_price <= 0
 ORDER BY sls_sales
 
+-- =========================================================================
+-- 10. Check Index out of range for the data bdate
+-- Expectation: bdate must smaller than the current date and greater than the date 01-01-1924
+-- =========================================================================
+-- Check erp_px_cat_g1v2
+SELECT DISTINCT 
+bdate
+FROM bronze.erp_cust_az12
+WHERE bdate < '1924-01-01' OR bdate > GETDATE()
 
