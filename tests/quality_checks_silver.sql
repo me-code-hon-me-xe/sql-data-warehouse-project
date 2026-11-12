@@ -172,3 +172,79 @@ SELECT DISTINCT
 FROM silver.erp_cust_az12
 WHERE bdate < '1924-01-01' OR bdate > GETDATE()
 
+-- =========================================================================
+-- 11. (SERVING FOR GOLD LAYER) Check for Uniqueness of Customer Key in gold.dim_customers 
+-- after LEFT JOIN three tables (silver.erp_cust_az12, silver.erp_loc_a101, silver.dim_customers)
+-- Expectation: No Results
+-- =========================================================================
+-- Checking 'gold.dim_customers'
+SELECT
+    ci.cst_id,
+    COUNT(*) AS total_number_of_id
+FROM silver.crm_cust_info ci
+    LEFT JOIN silver.erp_cust_az12 ca
+    ON ci.cst_key = ca.cid
+    LEFT JOIN silver.erp_loc_a101 la
+    ON ci.cst_key = la.cide
+GROUP BY ci.cst_id
+HAVING COUNT(*) > 1
+
+-- =========================================================================
+-- 11. (SERVING FOR GOLD LAYER) Check for the integrity of 2 columns gender in gold.dim_customers 
+-- after LEFT JOIN three tables (silver.erp_cust_az12, silver.erp_loc_a101, silver.dim_customers)
+-- Expectation: the gen must be integrity, if 2 values is unmatched, then select the gen of the first column (From crm_cust_info)
+-- =========================================================================
+-- Checking 'gold.dim_customers'
+SELECT
+    ci.cst_gndr,
+    ca.gen,
+    CASE 
+        WHEN ci.cst_gndr != ca.gen OR ca.gen IS NULL THEN 'ERROR'
+        ELSE 'MATCH' -- Added to handle correct rows clearly
+    END AS error_column,
+    COUNT(*) AS total_error
+FROM silver.crm_cust_info ci
+    LEFT JOIN silver.erp_cust_az12 ca
+    ON ci.cst_key = ca.cid
+    LEFT JOIN silver.erp_loc_a101 la
+    ON ci.cst_key = la.cide
+GROUP BY 
+    ci.cst_gndr,
+    ca.gen;
+GO
+
+-- =========================================================================
+-- 12. (SERVING FOR GOLD LAYER) Check for Uniqueness of Product Key in gold.dim_products
+-- after LEFT JOIN with table (silver.erp_px_cat_g1v2)
+-- Expectation: No Results
+-- =========================================================================
+-- Checking 'gold.dim_products'
+
+SELECT
+    subt.prd_key,
+    COUNT(*) AS total_number_of_id
+FROM
+    (
+SELECT
+        pn.prd_id,
+        pn.cat_id,
+        pn.prd_key,
+        pn.prd_nm,
+        pn.prd_cost,
+        pn.prd_line,
+        pn.prd_start_dt,
+        pc.cat,
+        pc.subcat,
+        pc.maintanence
+    FROM silver.crm_prd_info pn
+        LEFT JOIN silver.erp_px_cat_g1v2 pc
+        ON pn.cat_id = pc.id
+    WHERE pn.prd_end_dt IS NULL -- Filter out all historical data 
+) subt
+GROUP BY subt.prd_key
+HAVING COUNT(*) > 1
+GO
+
+
+
+
