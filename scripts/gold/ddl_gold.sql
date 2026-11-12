@@ -20,6 +20,10 @@ GO
 -- Expectation: We take three tables belong to Object Customer, 
 --              and we coalesce them to 1 Customer Table.
 -- =============================================================================
+IF OBJECT_ID('gold.dim_customers', 'V') IS NOT NULL
+    DROP VIEW gold.dim_customers;
+GO
+
 CREATE VIEW gold.dim_customers
 AS
     SELECT
@@ -48,6 +52,10 @@ GO
 -- + We only take the current data (Assume: The historical data of product is not required)
 -- + We perform left join with the table erp_px_cat_g1v2 to extract detail about the products
 -- =============================================================================
+IF OBJECT_ID('gold.dim_products', 'V') IS NOT NULL
+    DROP VIEW gold.dim_products;
+GO
+
 CREATE VIEW gold.dim_products
 AS
     SELECT
@@ -74,6 +82,11 @@ GO
 -- Expectation: We take three tables belong to Object Customer, 
 --              and we coalesce them to 1 Customer Table.
 -- =============================================================================
+IF OBJECT_ID('gold.fact_sales', 'V') IS NOT NULL
+    DROP VIEW gold.fact_sales;
+GO
+
+
 CREATE VIEW gold.fact_sales
 AS
     SELECT
