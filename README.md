@@ -17,6 +17,11 @@ In this project, I:
 
 ---
 # 🏗️ Data Architecture
+The data architecture for this project follows Medallion Architecture **Bronze**, **Silver**, and **Gold** layers:
+<img width="1392" height="658" alt="Draw the Data Architecture drawio" src="https://github.com/user-attachments/assets/b9403356-62dd-478c-9c0e-1b77713f8e1a" />
+1. **Bronze Layer:** Stores raw data as-is from the source systems. Data is ingested from CSV Files into SQL Server Database.
+2. **Silver Layer:** This layer includes data cleansing, standardization, and normalization processes to prepare data for analysis.
+3. **Gold Layer:** Houses business-ready data modeled into a star schema required for reporting and analytics.
 
 ---
 
@@ -42,9 +47,6 @@ Develop SQL-based analytics to deliver detailed insights into:
 - **Product Performance**
 - **Sales Trends**
 These insights empower stakeholders with key business metrics, enabling strategic decision-making.
-
-For more details, refer to [docs/requirements.md.]([https://google.com](https://github.com/me-code-hon-me-xe/sql-data-warehouse-project/edit/main/README.md)
-
 ---
 
 
