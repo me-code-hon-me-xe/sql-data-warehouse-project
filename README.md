@@ -5,6 +5,19 @@
 Welcome the the **Data Warehouse and Analytics Project** repository! 🚀 <br>
 This project demonstrates a comprehensive data warehousing and analytic solution, form building a data warehouse to generating actionable insights. Designed a portfolio projects. Designed a portfolio project that highlights industry best practices in data engineering and analytics. 
 
+
+---
+# 📖 Project Overview
+In this project, I:
+
+1. **Design the architecture:** a modern data warehouse with three layers, bronze, silver and gold.
+2. **Build the ETL pipelines:** load the source files and move the data through the layers.
+3. **Model the data:** facts and dimensions, ready for reports.
+4. **Analyze it:** answer business questions with SQL.
+
+---
+# 🏗️ Data Architecture
+
 ---
 
 # 🚀 Project Requirements
@@ -28,7 +41,6 @@ Develop SQL-based analytics to deliver detailed insights into:
 - **Customer Behavior**
 - **Product Performance**
 - **Sales Trends**
-- 
 These insights empower stakeholders with key business metrics, enabling strategic decision-making.
 
 For more details, refer to [docs/requirements.md.]([https://google.com](https://github.com/me-code-hon-me-xe/sql-data-warehouse-project/edit/main/README.md)
