@@ -27,9 +27,9 @@ The data architecture for this project follows Medallion Architecture **Bronze**
 
 # 🛠️ Important Links & Tools
 1. **SQL Server and Azure Data Studio.**
-2. **Git(https://github.com/me-code-hon-me-xe/sql-data-warehouse-project)**: a GitHub account, to save and share my project.
+2. **[Git](https://github.com/me-code-hon-me-xe/sql-data-warehouse-project)**: a GitHub account, to save and share my project.
 3. **draw.io**: to draw the architecture and the data model.
-4. **Notion project steps([https://git-scm.com](https://app.notion.com/p/Data-Warehouse-Project-3f044498aa1380a78aa7df14417a7ad6)):** every phase and task of the project.
+4. **[Notion project steps](https://app.notion.com/p/Data-Warehouse-Project-3f044498aa1380a78aa7df14417a7ad6):** every phase and task of the project.
 
 ---
 
